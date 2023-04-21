@@ -38,5 +38,4 @@ bcrypt, connect-mongo, dotenv, ejs, express, express-flash, express-session, mon
   - PORT: 2121 (can be any port example: 3000)
   - DB_STRING: `your database URI`
   ***
-
 Have fun testing and improving it! 😎
