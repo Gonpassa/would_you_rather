@@ -10,6 +10,8 @@ const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const todoRoutes = require('./routes/todos')
 
+const questionRoutes = require('./routes/questions')
+
 require('dotenv').config({path: './config/.env'})
 
 // Passport config
@@ -41,8 +43,9 @@ app.use(flash())
 app.use('/', mainRoutes)
 app.use('/todos', todoRoutes)
 
+app.use('/questions',questionRoutes )
 /*
-app.use('/wyr',wyrRoutes )
+
 
 */
 

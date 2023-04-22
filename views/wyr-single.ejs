@@ -8,22 +8,25 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-  // api call to get all the wyr questions
-  <div class="container mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <% wyr.forEach( el => { %>
-        <div class="bg-gray-100 p-4 rounded-lg">
-          <h2 class="text-2xl font-bold"><%= el.question %></h2>
-          <div class="flex justify-between">
-            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-              <%= el.optionA %>
-            </button>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              <%= el.optionB %>
-            </button>
-          </div>
-        </div>
-      <% }) %>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-4">Would You Rather</h1>
+    <div class="bg-white shadow-md rounded-md p-8">
+      <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl font-semibold">Question:</h2>
+        <span class="text-gray-600" id="total-votes" style="display: none;">Total votes: 250</span>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <button id="optionA" class="bg-blue-500 p-8 text-white text-center rounded-md" onclick="vote('A')">
+          <p>Travel to the past</p>
+          <p id="percentageA" style="display: none;">40.00%</p>
+        </button>
+        <button id="optionB" class="bg-red-500 p-8 text-white text-center rounded-md" onclick="vote('B')">
+          <p>Travel to the future</p>
+          <p id="percentageB" style="display: none;">60.00%</p>
+        </button>
+      </div>
     </div>
+  </div>
+
 </body>
 </html>
