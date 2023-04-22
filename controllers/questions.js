@@ -1,4 +1,4 @@
-const Question = require('../models/Question')
+// const Question = require('../models/Question')
 
 module.exports = {
   getQuestion: async (req, res) => {
@@ -10,8 +10,8 @@ module.exports = {
     }
   },
   createComment: async (req, res) => {
-    
-  }
+
+  },
   markComplete: async (req, res) => {
     try {
       await Todo.findOneAndUpdate(
