@@ -10,7 +10,11 @@ const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const todoRoutes = require('./routes/todos')
 
+/* adding question route */
+
 const questionRoutes = require('./routes/questions')
+
+/* end of addition  of question route*/
 
 require('dotenv').config({path: './config/.env'})
 
