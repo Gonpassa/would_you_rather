@@ -15,7 +15,7 @@
                 <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
                 <span class='del'> Delete </span>
             </li>
-    <% }) %>    
+    <% }) %>
     </ul>
 
     <h2><%= user.userName %> has <%= left %> things left to do.</h2>
@@ -26,6 +26,7 @@
     </form>
 
     <a href="/logout">Logout</a>
+    <a href="/questions">question page</a>
 
     <script src="js/main.js"></script>
 </body>
