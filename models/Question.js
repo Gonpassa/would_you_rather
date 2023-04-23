@@ -9,7 +9,11 @@ const QuestionSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
-  voteCount: {
+  voteCount1: {
+    type: Number,
+    required: true
+  },
+  voteCount2: {
     type: Number,
     required: true
   },
