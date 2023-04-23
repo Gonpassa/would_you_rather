@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 const {questionController} = require("../controllers/questions");
 // const { ensureAuth } = require("../middleware/auth");
-
 // const { getIndex } = require("../controllers/home");
 
+
 router.get("/", questionController.getIndex);
+
+/* below possible for later?  */
 
 // router.get("/question/:id", (req, res) => {
 //   const question = {
@@ -16,5 +18,7 @@ router.get("/", questionController.getIndex);
 //   };
 //   res.render("question", { question });
 // });
+
+/* end of possible code needed for later*/
 
 module.exports =  router ;
