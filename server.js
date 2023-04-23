@@ -10,6 +10,10 @@ const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const todoRoutes = require('./routes/todos')
 
+/* adding question route definition */
+const questionRoutes = require('./routes/questions')
+/* end of addition  of question route definition*/
+
 require('dotenv').config({path: './config/.env'})
 
 // Passport config
@@ -31,16 +35,22 @@ app.use(
       store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
   )
-  
+
 // Passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(flash())
-  
+
 app.use('/', mainRoutes)
 app.use('/todos', todoRoutes)
- 
+
+/* question route*/
+
+app.use('/questions', questionRoutes )
+
+/* */
+
 app.listen(process.env.PORT, ()=>{
     console.log('Server is running, you better catch it!')
-})    
+})
