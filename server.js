@@ -12,7 +12,7 @@ const todoRoutes = require('./routes/todos')
 
 /* adding question route */
 
-// const questionRoutes = require('./routes/questions')
+const questionRoutes = require('./routes/questions')
 
 /* end of addition  of question route*/
 
@@ -47,7 +47,7 @@ app.use(flash())
 app.use('/', mainRoutes)
 app.use('/todos', todoRoutes)
 
-// app.use('/questions',questionRoutes )
+app.use('/questions',questionRoutes )
 /*
 
 

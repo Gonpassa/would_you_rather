@@ -31,12 +31,12 @@ const User = require('../models/User')
       req.logIn(user, (err) => {
         if (err) { return next(err) }
         req.flash('success', { msg: 'Success! You are logged in.' })
-        // res.redirect(req.session.returnTo || '/todos')
+        res.redirect(req.session.returnTo || '/todos')
 
         /* ^ former code for redirecting to the page the user was on before logging in */
         /* v:  added code for going to the question page instead*/
 
-        res.redirect(req.session.returnTo || '/questions')
+        // res.redirect(req.session.returnTo || '/questions')
       })
     })(req, res, next)
   }

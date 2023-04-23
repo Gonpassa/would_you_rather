@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const questionsController = require("../controllers/questions");
-const { ensureAuth } = require("../middleware/auth");
+const {questionController} = require("../controllers/questions");
+// const { ensureAuth } = require("../middleware/auth");
 
 // const { getIndex } = require("../controllers/home");
 
-// router.get("/", getIndex);
+router.get("/", questionController.getIndex);
 
 // router.get("/question/:id", (req, res) => {
 //   const question = {
@@ -17,4 +17,4 @@ const { ensureAuth } = require("../middleware/auth");
 //   res.render("question", { question });
 // });
 
-module.exports = { router };
+module.exports =  router ;
