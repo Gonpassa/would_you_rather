@@ -1,4 +1,4 @@
-const express = require('express')
+/* const express = require('express')
 const router = express.Router()
 const todosController = require('../controllers/todos') 
 const { ensureAuth } = require('../middleware/auth')
@@ -13,4 +13,4 @@ router.put('/markIncomplete', todosController.markIncomplete)
 
 router.delete('/deleteTodo', todosController.deleteTodo)
 
-module.exports = router
+module.exports = router */

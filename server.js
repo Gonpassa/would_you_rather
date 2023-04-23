@@ -43,8 +43,8 @@ app.use(passport.session())
 app.use(flash())
 
 app.use('/', mainRoutes)
-app.use('/todos', todoRoutes)
-
+/* app.use('/todos', todoRoutes)
+ */
 /* question route*/
 
 app.use('/questions', questionRoutes )

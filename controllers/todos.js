@@ -1,4 +1,4 @@
-const Todo = require('../models/Todo')
+/* const Todo = require('../models/Todo')
 
 module.exports = {
     getTodos: async (req,res)=>{
@@ -52,4 +52,4 @@ module.exports = {
             console.log(err)
         }
     }
-}    
+}     */
