@@ -10,49 +10,92 @@
   <script src="https://kit.fontawesome.com/8dcd3a832c.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/wyr-single.css">
   <script src="/js/wyr-single.js" defer></script>
+<script defer>
+  const questionData = <%- JSON.stringify(question) %>
+
+  function voteOption(option) {
+    vote(option, questionData);
+  }
+
+    const questionId = questionData._id;
+    const optionId = questionData.options[option]._id;
+    const url = `/api/questions/${questionId}/options/${optionId}/vote`;
+    const data = {
+      optionId: optionId,
+      questionId: questionId
+    };
+    const request = new Request(url, {
+      method: 'post',
+      body: JSON.stringify(data),
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      }
+    });
+
+    fetch(request)
+      .then(res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          alert('Could not vote');
+        }
+      })
+      .then(json => {
+        console.log(json);
+        window.location.reload();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+</script>
+
 </head>
 
 <body class="h-auto w-screen flex flex-col bg-slate-600 border-white">
   <%- include('../testPartials/testNavbar'); %>
   <div class="content">
     <main name="div-wrap" class="h-5/6 w-7/8 container mx-auto px-4 py-8 md:w-4/6 md:h-4/6 l:h-3/6 l:w-5/6">
+      <span class="text-white text-center" id="total-votes" style="display: block;">Created By: <%=question.createdBy%></span>
       <section name="MAIN INSIDE DIV"
         class=" flex flex-col h-full bg-white shadow-md rounded-3xl p-8 md:h-4/6 md:flex-col md:h-full">
         <div name="Question/vote percentage container h-3/4"
           class="flex flex-col h-1/2 justify-center items-center mb-8 text-center">
           <span class="text-gray-600" id="total-votes" style="display: none;">Total votes: 250</span>
-          <h2 class="text-2xl font-semibold text-center text-black"><%= question.createdBy %>Would You Rather</h2>
+          <h2 class="text-2xl font-semibold text-center text-black">Would You Rather</h2>
         </div>
         <div class="relative flex flex-col w-full h-1/2 md:flex-row justify-between h-full md:flex-row">
-          <button id="optionA"
+          <button id="option1"
             class="flex flex-col justify-center items-center w-full h-1/2 bg-blue-500 text-white text-center
             rounded-t-xl shadow-xl drop-shadow-lg hover:bg-blue-600 active:bg-blue-700 md:w-1/2 h-full md:rounded-tl-xl
             md:rounded-tr-none md:rounded-br-none md:rounded-bl-xl text-base md:text-xl
             background-color: #f8f9fa;"
-            onClick="vote('A')">
+            onClick="voteOption('option1')">
+
             <p><%= question.option1 %></p>
             <div class="flex justify-center w-full">
               <span class="fa-regular fa-thumbs-up"></span>
             </div>
-            <p id="percentageA" style="display: block;"><%= question.voteCount1 %></p>
+            <p id="voteCount1" style="display: block;"><%= question.voteCount1 %></p>
           </button>
-          <button id="optionB"
+          <button id="option2"
             class="flex flex-col justify-center items-center w-full h-1/2 bg-red-500 text-white text-center rounded-b-xl shadow-xl drop-shadow-lg hover:bg-red-600 active:bg-red-700 md:w-1/2 h-full md:rounded-tl-none md:rounded-bl-none md:rounded-tr-xl md:rounded-br-xl text-base md:text-xl"
-            >
+            onClick="voteOption('option2')">
               <p><%= question.option2 %></p>
               <div class="flex justify-center w-full">
                 <span class="fa-regular fa-thumbs-up"></span>
               </div>
-              <p id="percentageB" style="display: block;"><%= question.voteCount2 %></p>
+              <p id="voteCount2" style="display: block;"><%= question.voteCount2 %></p>
           </button>
-          <div class="absolute inset-0 flex justify-center items-center">
+          <!-- <div class="absolute inset-0 flex justify-center items-center">
             <div
               class="flex flex-col justify-center items-center gap-y-2 my-4 bg-black text-white rounded-full p-2 h-12 w-12 md:h-24 md:w-24">
               <h1 class="">
                 OR
               </h1>
             </div>
-          </div>
+          </div> -->
         </div>
     </main>
     <div class="flex flex-col justify-center items-center gap-y-2 my-4">

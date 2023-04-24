@@ -39,3 +39,19 @@ function addNewComment() {
   commentList.appendChild(newComment);
   document.getElementById("comment").value = "";
 }
+
+
+function vote(option, question) {
+  const voteBtn1 = document.getElementById("option1");
+  const voteBtn2 = document.getElementById("option2");
+  const voteCount1btn = document.getElementById("voteCount1");
+  const voteCount2btn = document.getElementById("voteCount2");
+
+  if (option === "option1") {
+    question.voteCount1 += 1;
+    voteCount1btn.textContent = question.voteCount1;
+  } else if (option === "option2") {
+    question.voteCount2 += 1;
+    voteCount2btn.textContent = question.voteCount2;
+  }
+}
