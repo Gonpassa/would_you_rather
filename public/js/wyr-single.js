@@ -30,12 +30,12 @@ closeModal.addEventListener("click", () => {
   commentModal.classList.remove("show");
 });
 
-function addNewComment() {
-  const comment = document.getElementById("comment").value;
+function addNewComment(question, comment) {
+  const commentText = document.getElementById("comment").value;
   const commentList = document.querySelector("ul");
   const newComment = document.createElement("li");
   newComment.classList.add("border-b", "border-gray-200", "py-2");
-  newComment.textContent = comment;
+  newComment.textContent = commentText;
   commentList.appendChild(newComment);
   document.getElementById("comment").value = "";
 }
@@ -60,7 +60,18 @@ function vote(option, question) {
   }
 
   hasVoted = true;
+  voteBtn1.disabled = true;
+  voteBtn2.disabled = true;
+  const voteCount1Display = document.getElementById("voteCount1");
+  const voteCount2Display = document.getElementById("voteCount2");
+  const totalVotesDisplay = document.getElementById("totalVotes");
+
+  // Set the display property to block
+  voteCount1Display.style.display = "block";
+  voteCount2Display.style.display = "block";
+  totalVotesDisplay.style.display = "block";
 }
+
 
 function nextQuestion(questionData) {
   // need to access the question object from the "server", which is just in the controller hardcoded as a questions variable
