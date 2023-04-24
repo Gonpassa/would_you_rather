@@ -61,3 +61,13 @@ function vote(option, question) {
 
   hasVoted = true;
 }
+
+function nextQuestion(questionData) {
+  // need to access the question object from the "server", which is just in the controller hardcoded as a questions variable
+  const question = questionData;
+  const voteCount1btn = document.getElementById("voteCount1");
+  const voteCount2btn = document.getElementById("voteCount2");
+  const voteBtn1 = document.getElementById("option1");
+  const voteBtn2 = document.getElementById("option2");
+
+}
