@@ -1,7 +1,7 @@
-let votedQuestionIds = [];
+let questionCounter = 0;
+
 const getIndex = async (req, res) => {
   try {
-    // sample data
     const questions = [
       {
         id: 1,
@@ -9,102 +9,65 @@ const getIndex = async (req, res) => {
         option2: "Travel to the future",
         voteCount1: 1,
         voteCount2: 2,
-        createdBy: "supermario64",
+        createdBy: "user1",
       },
       {
         id: 2,
-        option1: "have high intelligence",
-        option2: "have psychic powers",
+        option1: "have telekinesis",
+        option2: "have telepathy",
         voteCount1: 2,
         voteCount2: 1,
-        createdBy: "megamind",
+        createdBy: "user2",
       },
       {
         id: 3,
-        option1: "be a famous director",
-        option2: "be a famous actor",
+        option1: "have universal respect",
+        option2: "unlimited power",
         voteCount1: 3,
         voteCount2: 0,
-        createdBy: "scorseseforever",
+        createdBy: "user3",
       },
     ];
     const comments = [
       {
-        comment: "hm time travel",
+        comment: "comment for question 1",
         madeBy: "anonymous",
         questionId: 1,
       },
       {
-        comment: "hm time travel",
-        madeBy: "anonymous",
-        questionId: 1,
-      },
-      {
-        comment: "hm time travel",
-        madeBy: "anonymous",
-        questionId: 1,
-      },
-      {
-        comment: "haha",
+        comment: "comment for question 2",
         madeBy: "anonymous1",
         questionId: 2,
       },
       {
-        comment: "haha",
-        madeBy: "anonymous1",
-        questionId: 2,
-      },
-      {
-        comment: "neither?",
-        madeBy: "anonymous2",
-        questionId: 3,
-      },
-      {
-        comment: "neither?",
-        madeBy: "anonymous2",
-        questionId: 3,
-      },
-      {
-        comment: "neither?",
+        comment: "comment for question 3",
         madeBy: "anonymous2",
         questionId: 3,
       },
     ];
 
-    const filteredQuestions = questions.filter(
-      (question) => !votedQuestionIds.includes(question.id)
-    );
+    // Get the next question in the array
+    const currentQuestion = questions[questionCounter];
 
-    const allVoted = filteredQuestions.length === 0;
+    // Increment the question counter for the next iteration
+    questionCounter = (questionCounter + 1) % questions.length;
 
-    if (allVoted) {
-      // Reset votedQuestionIds if all questions have been voted on
-      votedQuestionIds = [];
-      // Reset filteredQuestions
-      filteredQuestions = questions.filter(
-        (question) => !votedQuestionIds.includes(question.id)
-      );
-    }
-
-    const questionCount = filteredQuestions.length;
-    const randomIndex = Math.floor(Math.random() * questionCount);
+    // Fetch comments associated with the current question
     const commentsForQuestion = comments.filter(
-      (comment) => comment.questionId === filteredQuestions[randomIndex].id
+      (comment) => comment.questionId === currentQuestion.id
     );
 
-    // end sample data
     res.render("wyr-single.ejs", {
-      question: allVoted ? null : filteredQuestions[randomIndex],
+      question: currentQuestion,
       commentsForQuestion,
-      allVoted,
     });
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal Server Error");
   }
-}
+};
 
-  /*
+/*
 
 const getIndex = async (req, res) => {
   try {

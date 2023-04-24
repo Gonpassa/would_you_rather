@@ -27,8 +27,8 @@
   <%- include('../testPartials/testNavbar'); %>
   <div class="content">
     <main name="div-wrap" class="h-5/6 w-7/8 container mx-auto px-4 py-8 md:w-4/6 md:h-4/6 l:h-3/6 l:w-5/6">
-      <span class="text-white text-center"style="display: block;">Created By: <%=question.createdBy%></span>
-      <section name="MAIN INSIDE DIV"
+      <span class="text-white text-center"style="display: block;">Created By: <%=question.createdBy %></span>
+      <section name="MAIN INSIDE DIV" id="main-div"
         class=" flex flex-col h-full bg-white shadow-md rounded-3xl p-8 md:h-4/6 md:flex-col md:h-full">
         <div name="Question/vote percentage container h-3/4"
           class="flex flex-col h-1/2 justify-center items-center mb-8 text-center">
@@ -90,7 +90,7 @@
         <% commentsForQuestion.forEach(comment => { %>
           <div class="flex flex-row justify-between">
             <p class="text-gray-600"><%= comment.madeBy %></p>
-            <p class="text-gray-600">"<%= comment.comment %>"</p>
+            <p class="text-gray-600"><%= comment.comment %></p>
           </div>
         <% }) %>
       </ul>

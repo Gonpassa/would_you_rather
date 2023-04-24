@@ -71,8 +71,13 @@ function vote(option, question) {
   voteCount2Display.style.display = "block";
   totalVotesDisplay.style.display = "block";
 
+
   const totalVotes = question.voteCount1 + question.voteCount2;
   totalVotesDisplay.textContent = `Total votes: ${totalVotes}`;
-  votedQuestionIds.push(questionId);
+
+
+  const mainDiv = document.getElementById("main-div");
+  console.log("mainDiv: ", mainDiv);
+  mainDiv.classList.add("slide-out");
 
 }

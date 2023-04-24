@@ -44,3 +44,17 @@
         opacity: 1;
       }
     }
+
+
+    .slide-out {
+      animation: slideOut 2s ease forwards;
+    }
+
+@keyframes slideOut {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
+}
