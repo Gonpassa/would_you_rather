@@ -46,22 +46,26 @@ function vote(option, question) {
     return;
   }
 
-  const voteBtn1 = document.getElementById("option1");
-  const voteBtn2 = document.getElementById("option2");
-  const voteCount1btn = document.getElementById("voteCount1");
-  const voteCount2btn = document.getElementById("voteCount2");
+  const optionBtn1 = document.getElementById("option1");
+  const optionBtn2 = document.getElementById("option2");
+  const voteCount1Btn = document.getElementById("voteCount1");
+  const voteCount2Btn = document.getElementById("voteCount2");
+
+  console.log("optionbtn2 text", optionBtn2)
+  console.log("voteCount2btn", voteCount2Btn)
+
 
   if (option === "option1") {
     question.voteCount1 += 1;
-    voteCount1btn.textContent = question.voteCount1;
+    voteCount1Btn.textContent = question.voteCount1;
   } else if (option === "option2") {
     question.voteCount2 += 1;
-    voteCount2btn.textContent = question.voteCount2;
+    voteCount2Btn.textContent = question.voteCount2;
   }
 
   hasVoted = true;
-  voteBtn1.disabled = true;
-  voteBtn2.disabled = true;
+  optionBtn1.disabled = true;
+  optionBtn2.disabled = true;
   const voteCount1Display = document.getElementById("voteCount1");
   const voteCount2Display = document.getElementById("voteCount2");
   const totalVotesDisplay = document.getElementById("totalVotes");
