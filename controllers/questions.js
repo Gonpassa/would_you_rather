@@ -1,3 +1,4 @@
+let votedQuestionIds = [];
 const getIndex = async (req, res) => {
   try {
     // sample data
@@ -6,24 +7,24 @@ const getIndex = async (req, res) => {
         id: 1,
         option1: "Travel to the past",
         option2: "Travel to the future",
-        voteCount1: 10,
-        voteCount2: 20,
+        voteCount1: 1,
+        voteCount2: 2,
         createdBy: "supermario64",
       },
       {
         id: 2,
         option1: "have high intelligence",
         option2: "have psychic powers",
-        voteCount1: 10,
-        voteCount2: 20,
+        voteCount1: 2,
+        voteCount2: 1,
         createdBy: "megamind",
       },
       {
         id: 3,
         option1: "be a famous director",
         option2: "be a famous actor",
-        voteCount1: 10,
-        voteCount2: 20,
+        voteCount1: 3,
+        voteCount2: 0,
         createdBy: "scorseseforever",
       },
     ];
@@ -69,16 +70,39 @@ const getIndex = async (req, res) => {
         questionId: 3,
       },
     ];
-    const questionCount = questions.length;
+
+    const filteredQuestions = questions.filter(
+      (question) => !votedQuestionIds.includes(question.id)
+    );
+
+    const allVoted = filteredQuestions.length === 0;
+
+    if (allVoted) {
+      // Reset votedQuestionIds if all questions have been voted on
+      votedQuestionIds = [];
+      // Reset filteredQuestions
+      filteredQuestions = questions.filter(
+        (question) => !votedQuestionIds.includes(question.id)
+      );
+    }
+
+    const questionCount = filteredQuestions.length;
     const randomIndex = Math.floor(Math.random() * questionCount);
-    const commentsForQuestion = comments.filter((comment) => comment.questionId === questions[randomIndex].id);
+    const commentsForQuestion = comments.filter(
+      (comment) => comment.questionId === filteredQuestions[randomIndex].id
+    );
+
     // end sample data
-    res.render("wyr-single.ejs", { question: questions[randomIndex], commentsForQuestion });
-  }
-  catch (err) {
+    res.render("wyr-single.ejs", {
+      question: allVoted ? null : filteredQuestions[randomIndex],
+      commentsForQuestion,
+      allVoted,
+    });
+  } catch (err) {
     console.log(err);
     res.status(500).send("Internal Server Error");
   }
+}
 
   /*
 
@@ -102,14 +126,14 @@ const createComment = async(req,res) => {
       madeBy: req.user.username,
       questionId: req.body.questionId,
     });
-\   res.redirect(`/question/${req.body.questionId}`);
+   res.redirect(`/question/${req.body.questionId}`);
   }catch(err){
     console.log(err);
     res.status(500).send("Internal Server Error");
   }
 }
-  */
 };
+*/
 
 module.exports = {
   questionController: {

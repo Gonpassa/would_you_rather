@@ -6,7 +6,6 @@ const {questionController} = require("../controllers/questions");
 
 
 router.get("/", questionController.getIndex);
-
 /* below possible for later?  */
 
 // router.get("/question/:id", (req, res) => {

@@ -70,15 +70,9 @@ function vote(option, question) {
   voteCount1Display.style.display = "block";
   voteCount2Display.style.display = "block";
   totalVotesDisplay.style.display = "block";
-}
 
-
-function nextQuestion(questionData) {
-  // need to access the question object from the "server", which is just in the controller hardcoded as a questions variable
-  const question = questionData;
-  const voteCount1btn = document.getElementById("voteCount1");
-  const voteCount2btn = document.getElementById("voteCount2");
-  const voteBtn1 = document.getElementById("option1");
-  const voteBtn2 = document.getElementById("option2");
+  const totalVotes = question.voteCount1 + question.voteCount2;
+  totalVotesDisplay.textContent = `Total votes: ${totalVotes}`;
+  votedQuestionIds.push(questionId);
 
 }
