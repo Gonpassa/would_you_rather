@@ -77,7 +77,6 @@ function vote(option, question) {
 
 
   const mainDiv = document.getElementById("main-div");
-  console.log("mainDiv: ", mainDiv);
   mainDiv.classList.add("slide-out");
 
 }
