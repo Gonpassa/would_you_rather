@@ -40,8 +40,12 @@ function addNewComment() {
   document.getElementById("comment").value = "";
 }
 
-
+let hasVoted = false;
 function vote(option, question) {
+  if (hasVoted) {
+    return;
+  }
+
   const voteBtn1 = document.getElementById("option1");
   const voteBtn2 = document.getElementById("option2");
   const voteCount1btn = document.getElementById("voteCount1");
@@ -54,4 +58,6 @@ function vote(option, question) {
     question.voteCount2 += 1;
     voteCount2btn.textContent = question.voteCount2;
   }
+
+  hasVoted = true;
 }

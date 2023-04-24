@@ -16,39 +16,6 @@
   function voteOption(option) {
     vote(option, questionData);
   }
-
-    const questionId = questionData._id;
-    const optionId = questionData.options[option]._id;
-    const url = `/api/questions/${questionId}/options/${optionId}/vote`;
-    const data = {
-      optionId: optionId,
-      questionId: questionId
-    };
-    const request = new Request(url, {
-      method: 'post',
-      body: JSON.stringify(data),
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      }
-    });
-
-    fetch(request)
-      .then(res => {
-        if (res.status === 200) {
-          return res.json();
-        } else {
-          alert('Could not vote');
-        }
-      })
-      .then(json => {
-        console.log(json);
-        window.location.reload();
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
 </script>
 
 </head>
