@@ -12,7 +12,7 @@ const getIndex = (req, res) => {
     "Interesting poll!",
   ];
   // end sample data
-  res.render("wyr-single.ejs", { question, comments });
+  res.render("copy.ejs", { question, comments, user: req.user });
 };
 
 module.exports = {
