@@ -21,7 +21,7 @@
         <div name="Question/vote percentage container h-3/4"
           class="flex flex-col h-1/2 justify-center items-center mb-8 text-center">
           <span class="text-gray-600" id="total-votes" style="display: none;">Total votes: 250</span>
-          <h2 class="text-2xl font-semibold text-center text-black"><%=question.text%></h2>
+          <h2 class="text-2xl font-semibold text-center text-black"><%= question.createdBy %>Would You Rather</h2>
         </div>
         <div class="relative flex flex-col w-full h-1/2 md:flex-row justify-between h-full md:flex-row">
           <button id="optionA"
@@ -34,7 +34,7 @@
             <div class="flex justify-center w-full">
               <span class="fa-regular fa-thumbs-up"></span>
             </div>
-            <p id="percentageA" style="display: none;">40.00%</p>
+            <p id="percentageA" style="display: block;"><%= question.voteCount1 %></p>
           </button>
           <button id="optionB"
             class="flex flex-col justify-center items-center w-full h-1/2 bg-red-500 text-white text-center rounded-b-xl shadow-xl drop-shadow-lg hover:bg-red-600 active:bg-red-700 md:w-1/2 h-full md:rounded-tl-none md:rounded-bl-none md:rounded-tr-xl md:rounded-br-xl text-base md:text-xl"
@@ -43,7 +43,7 @@
               <div class="flex justify-center w-full">
                 <span class="fa-regular fa-thumbs-up"></span>
               </div>
-              <p id="percentageB" style="display: none;">60.00%</p>
+              <p id="percentageB" style="display: block;"><%= question.voteCount2 %></p>
           </button>
           <div class="absolute inset-0 flex justify-center items-center">
             <div
@@ -63,7 +63,7 @@
       <button name="comment-btn"
         class="bg-orange-500 rounded-3xl py-3 w-3/4 text-xs shadow-xl py-0 px-0 hover:bg-orange-600 active:bg-orange-700 md:py-0">
         <span class="fa-regular fa-comment"></span>
-        <p>Comment</p>
+        <p>Comment?</p>
       </button>
     </div>
     </section>
@@ -74,7 +74,9 @@
       <h2 class="text-2xl font-semibold mb-4">Comments</h2>
       <ul>
         <% comments.forEach(comment => { %>
-        <li class="border-b border-gray-200 py-2"><%= comment %></li>
+        <li class="border-b border-gray-200 py-2"><%= comment.comment %></li>
+        <li class="border-b border-gray-200 py-2"><%= comment.madeBy %></li>
+        <li class="border-b border-gray-200 py-2"><%= comment.questionId %></li>
         <% }) %>
       </ul>
       <form action="submit">
