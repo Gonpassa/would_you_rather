@@ -19,15 +19,15 @@ addComment.addEventListener("click", (e) => {
   addNewComment();
 });
 
+closeModal.addEventListener("click", () => {
+  commentModal.classList.add("hidden");
+  commentModal.classList.remove("show");
+});
+
 // Add an event listener for the 'submit' event on the form
 commentForm.addEventListener("submit", (e) => {
   e.preventDefault();
   addNewComment();
-});
-
-closeModal.addEventListener("click", () => {
-  commentModal.classList.add("hidden");
-  commentModal.classList.remove("show");
 });
 
 function addNewComment(question, comment) {

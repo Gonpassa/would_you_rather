@@ -34,9 +34,34 @@ const getIndex = async (req, res) => {
         questionId: 1,
       },
       {
+        comment: "hm time travel",
+        madeBy: "anonymous",
+        questionId: 1,
+      },
+      {
+        comment: "hm time travel",
+        madeBy: "anonymous",
+        questionId: 1,
+      },
+      {
         comment: "haha",
         madeBy: "anonymous1",
         questionId: 2,
+      },
+      {
+        comment: "haha",
+        madeBy: "anonymous1",
+        questionId: 2,
+      },
+      {
+        comment: "neither?",
+        madeBy: "anonymous2",
+        questionId: 3,
+      },
+      {
+        comment: "neither?",
+        madeBy: "anonymous2",
+        questionId: 3,
       },
       {
         comment: "neither?",
