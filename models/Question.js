@@ -6,7 +6,7 @@ const QuestionSchema = new mongoose.Schema({
     required: true,
   },
   option2: {
-    type: Boolean,
+    type: String,
     required: true,
   },
   voteCount1: {

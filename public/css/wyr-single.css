@@ -1,5 +1,30 @@
+/* @import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities'; */
+
     .content {
       height: calc(100vh - 4rem)
+    }
+
+    /* .custom-styling-btn1 {
+      @apply flex flex-col justify-center items-center w-full h-1/2 bg-blue-500 text-white text-center rounded-t-xl shadow-xl drop-shadow-lg hover:bg-blue-600 active:bg-blue-700 md:w-1/2 h-full md:rounded-tl-xl md:rounded-tr-none md:rounded-br-none md:rounded-bl-xl text-base md:text-xl
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+      color: #495057;
+      font-size: 1rem;
+      padding: 0.375rem 0.75rem;
+    } */
+
+    .custom-styling-btn1:hover {
+      background-color: #e9ecef;
+      border-color: #cfd8dc;
+      cursor: pointer;
     }
 
     #comment-modal {
@@ -19,3 +44,17 @@
         opacity: 1;
       }
     }
+
+
+    .slide-out {
+      animation: slideOut 2s ease forwards;
+    }
+
+@keyframes slideOut {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
+}
