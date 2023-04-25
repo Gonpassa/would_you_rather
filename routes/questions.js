@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const {questionController} = require("../controllers/questions");
-// const { ensureAuth } = require("../middleware/auth");
+const { ensureAuth } = require("../middleware/auth");
 // const { getIndex } = require("../controllers/home");
 
 
-router.get("/", questionController.getIndex);
+router.get("/", ensureAuth, questionController.getIndex);
 
 /* below possible for later?  */
 
