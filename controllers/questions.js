@@ -87,8 +87,8 @@ const getIndex = async (req, res) => {
 };
 
 const updateVote = async (req,res) => {
-  console.log(req.body.optionSelected);
-  console.log(req.body.questionId);
+  const optionText = req.body.optionSelected;
+  const questionId = req.body.questionId
   res.json('done')
   try {
     
