@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>WYR</title>
 </head>
-<body>
+<body class="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 h-screen">
     <nav class="bg-gray-800">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div class="relative flex h-16 items-center justify-between">
@@ -52,7 +52,7 @@
                       aria-current="page">Questions</a>
                       <a href="/logout"
                       class="text-gray-300 hover:bg-gray-700 hover:text-white focus:bg-gray-900 rounded-md px-3 py-2 text-sm font-medium">Logout</a>
-                    <% } %>  
+                    <% } %>
                 </div>
               </div>
             </div>
@@ -72,6 +72,21 @@
           </div>
         </div>
       </nav>
-    <h1>Create Your VERY OWN Todolist!</h1>
+
+<div class="flex flex-col items-center justify-center h-[calc(100%-4rem)] py-2 overflow-hidden">
+  <div class="flex flex-col items-center justify-center  w-screen">
+    <h1 class="text-6xl font-bold text-white text-center">
+      Would You Rather
+    </h1>
+    <h2 class="text-2xl text-gray-100 text-center">
+      Have Fun With Your Friends And Uncover Personal Insight
+    </h2>
+    <%if (!user) { %>
+    <a href="/signup" class="mt-8 px-6 py-3 text-white font-semibold rounded-lg bg-green-500 hover:bg-green-600">Get
+      Started</a>
+    <% } %>
+  </div>
+</div>
+
 </body>
 </html>
