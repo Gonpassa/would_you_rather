@@ -1,96 +1,92 @@
 /* TO BE DELETED LATER */
-
+const User = require("../models/User")
 const Question = require("../models/Question");
 const Comment = require("../models/Comment");
 
 const getIndex = async (req, res) => {
   try {
-    //   const questions = [
-    //     {
-    //       id: 1,
-    //       option1: "Travel to the past",
-    //       option2: "Travel to the future",
-    //       voteCount1: 1,
-    //       voteCount2: 2,
-    //       createdBy: "user1",
-    //     },
-    //     {
-    //       id: 2,
-    //       option1: "have telekinesis",
-    //       option2: "have telepathy",
-    //       voteCount1: 2,
-    //       voteCount2: 1,
-    //       createdBy: "user2",
-    //     },
-    //     {
-    //       id: 3,
-    //       option1: "have universal respect",
-    //       option2: "unlimited power",
-    //       voteCount1: 3,
-    //       voteCount2: 0,
-    //       createdBy: "user3",
-    //     },
-    //   ];
-    //   const comments = [
-    //     {
-    //       comment: "comment for question 1",
-    //       madeBy: "anonymous",
-    //       questionId: 1,
-    //     },
-    //     {
-    //       comment: "comment for question 2",
-    //       madeBy: "anonymous1",
-    //       questionId: 2,
-    //     },
-    //     {
-    //       comment: "comment for question 3",
-    //       madeBy: "anonymous2",
-    //       questionId: 3,
-    //     },
-    //   ];
+    //Get user
+    const user = await User.findOne({_id: req.user.id})
+    //Get all question documents in db
+    const questionsArr = await Question.find()
 
-    const questionCount = await Question.countDocuments();
+    //If user has not voted on any questions yet generate random question
+    if(!user.questionsVoted.length){
+      //Select random question document
+      const randIndex = Math.floor(Math.random() * questionsArr.length - 1)
+      const question = questionsArr[randIndex]
+      
+      //Get comments for question
+      const comments = await Comment.find({questionId: question._id})
 
-    // Get the question id from session storage, initialize if not set
-    req.session.votedQuestionIds = req.session.votedQuestionIds || [];
+      //Add matching username to each comment
+      for(let comment of comments){
+        const user = await User.findById(comment.madeBy)
+        comment.userName = user.userName
+      }
 
-    // Find a question that hasn't been voted on yet
-    const unvotedQuestion = await Question.findOne({
-      _id: { $nin: req.session.votedQuestionIds },
-    });
-
-
-    if (unvotedQuestion) {
-      // Add the question id to the session storage
-      req.session.votedQuestionIds.push(unvotedQuestion._id);
-
-      // Get comments for the current question
-      const commentsForQuestion = await Comment.find({
-        questionId: unvotedQuestion._id,
-      });
-
-      res.render("wyr-single.ejs", {
-        question: unvotedQuestion,
-        commentsForQuestion,
+      //Render page with new question and comments for the question
+      return res.render("wyr-single.ejs", {
+        question: question,
+        commentsForQuestion: comments,
         user: req.user
       });
-    } else {
-      // All questions have been voted on
-      // Clear the session storage and display a message to the user
-      req.session.votedQuestionIds = [];
-
-      res.render("wyr-single.ejs", {
-        question: null,
-        commentsForQuestion: [],
-        allVoted: true,
-        user: req.user });
     }
+
+    //Get array of questions that user has not voted
+    const unvotedQuestions = questionsArr.filter(q => user.questionsVoted.includes(q._id) ? 0 : 1)
+    console.log(unvotedQuestions);
+    if(!unvotedQuestions.length){
+      return res.redirect('/logout')
+    }
+    const randIndex = Math.floor(Math.random() * unvotedQuestions.length)
+
+    //Randomly pick a question
+    const question = unvotedQuestions[randIndex]
+
+    //Get comments for question
+    const comments = await Comment.find({questionId: question._id})
+
+    //Add matching username to each comment
+    for(let comment of comments){
+      const writer = await User.findById(comment.madeBy)
+      comment.userName = writer.userName
+    }
+
+    res.render("wyr-single.ejs", {
+      question: question,
+      commentsForQuestion: comments,
+      user: req.user });
+    
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal Server Error");
   }
 };
 
+const updateVote = async (req,res) => {
+  const optionText = req.body.optionSelected;
+  const questionId = req.body.questionId
+  try {
+    //Push QuestionId into user questionsVoted Array and save
+    const user = await User.findOne({_id: req.user.id})
+    user.questionsVoted.push(questionId)
+    await user.save()
+    //Find voted question
+    const question = await Question.findOne({_id: questionId})
+    
+    if(question.option1 == optionText){
+      question.voteCount1++
+      await question.save()
+      return res.json(question)
+    }
+    question.voteCount2++
+    await question.save()
+    return res.json(question)
+  } catch (err) {
+    console.log(err);
+  }
+}
 /*
 
 const getIndex = async (req, res) => {
@@ -125,6 +121,7 @@ const createComment = async(req,res) => {
 module.exports = {
   questionController: {
     getIndex,
+    updateVote,
   },
 };
 
