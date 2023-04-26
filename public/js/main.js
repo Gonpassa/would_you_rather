@@ -33,17 +33,17 @@ async function deleteTodo(){
 }
 
 async function markComplete(){
-    const todoId = this.parentNode.dataset.id
+    const questionId = this.parentNode.dataset.id
     try{
-        const response = await fetch('todos/markComplete', {
-            method: 'put',
+        const response = await fetch('questions/comments', {
+            method: 'post',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
                 'todoIdFromJSFile': todoId
             })
         })
         const data = await response.json()
-        console.log(data)
+        document.queryselecty
         location.reload()
     }catch(err){
         console.log(err)

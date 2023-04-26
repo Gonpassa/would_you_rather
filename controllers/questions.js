@@ -1,5 +1,5 @@
 /* TO BE DELETED LATER */
-
+const User = require("../models/User")
 const Question = require("../models/Question");
 const Comment = require("../models/Comment");
 
@@ -49,10 +49,49 @@ const getIndex = async (req, res) => {
     //     },
     //   ];
 
+    //Get array of questionsIds that the user already voted on
+    const questionsVoted = await User.find({questionVoted: req.user.id})
+    
+    //Get all question documents in db
+    const questionsArr = await Question.find()
+
+    //If user has not voted yet generate random question
+    if(questionsVoted.length < 1){
+      //Select random question document
+      const randIndex = Math.floor(Math.random() * questionsArr.length - 1)
+      const question = questionsArr[randIndex]
+      
+      //Get comments for question
+      const comments = await Comment.find({questionId: question._id})
+
+      //Add matching username to each comment
+      for(let comment of comments){
+        const user = await User.findById(comment.madeBy)
+        comment.userName = user.userName
+      }
+
+      //Render page with new question and comments for the question
+      return res.render("wyr-single.ejs", {
+        question: question,
+        commentsForQuestion: comments,
+        user: req.user
+      });
+    }
+
+    
+    //Get array of questions that user has not voted
+    
+
+
+
+    //find one question that has an id not in the array
+    const question = await Question.find({})
+    //render the question, and the comments for that question. 
+
     const questionCount = await Question.countDocuments();
 
     // Get the question id from session storage, initialize if not set
-    req.session.votedQuestionIds = req.session.votedQuestionIds || [];
+    req.session.voteQuestionIds = req.session.votedQuestionIds || [];
 
     // Find a question that hasn't been voted on yet
     const unvotedQuestion = await Question.findOne({

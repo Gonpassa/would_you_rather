@@ -2,7 +2,6 @@ const Comment = require('../models/Comment');
 
 module.exports = {
     getComments: async (req, res) => {
-        console.log(req.user);
         try {
             const comments = await Comment.find({questionId: req.body.questionId});
             res.json(comments);
@@ -12,9 +11,9 @@ module.exports = {
     },
     createComment: async (req, res)=>{
         try {
-            await Comment.create({comment: req.body.commentText, madeBy: req.user.id, questionId: req.body.questionId});
+            const comment = await Comment.create({comment: req.body.commentText, madeBy: req.user.id, questionId: req.body.questionId});
             console.log('Comment has been added!');
-            res.redirect('/comments');
+            res.json(comment);
         } catch(err) {
             console.log(err);
         }
@@ -30,3 +29,4 @@ module.exports = {
         }
     }
 }
+
