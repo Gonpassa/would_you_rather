@@ -37,7 +37,7 @@ const getIndex = async (req, res) => {
     const unvotedQuestions = questionsArr.filter(q => user.questionsVoted.includes(q._id) ? 0 : 1)
     console.log(unvotedQuestions);
     if(!unvotedQuestions.length){
-      return res.send('Voted on every question')
+      return res.redirect('/logout')
     }
     const randIndex = Math.floor(Math.random() * unvotedQuestions.length)
 
