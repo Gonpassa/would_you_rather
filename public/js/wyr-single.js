@@ -91,3 +91,28 @@ function vote(option, question) {
   mainDiv.classList.add("slide-out");
 }
 
+const choices = document.querySelectorAll('.choice')
+Array.from(choices).forEach((choice) => {
+  choice.addEventListener('click', updateVotes)
+})
+
+async function updateVotes(){
+  const option = this.querySelector('p')
+  const questionId = option.getAttribute('data-id')
+  try {
+    const response = fetch('questions/vote', {
+        method: 'put',
+        headers: {'Content-type': 'application/json'},
+        body: JSON.stringify({
+          'optionSelected': option.textContent,
+          'questionId': questionId,
+        })
+      })
+    const data = await response.json()
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
+
+  
+}

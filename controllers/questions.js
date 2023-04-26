@@ -5,50 +5,6 @@ const Comment = require("../models/Comment");
 
 const getIndex = async (req, res) => {
   try {
-    //   const questions = [
-    //     {
-    //       id: 1,
-    //       option1: "Travel to the past",
-    //       option2: "Travel to the future",
-    //       voteCount1: 1,
-    //       voteCount2: 2,
-    //       createdBy: "user1",
-    //     },
-    //     {
-    //       id: 2,
-    //       option1: "have telekinesis",
-    //       option2: "have telepathy",
-    //       voteCount1: 2,
-    //       voteCount2: 1,
-    //       createdBy: "user2",
-    //     },
-    //     {
-    //       id: 3,
-    //       option1: "have universal respect",
-    //       option2: "unlimited power",
-    //       voteCount1: 3,
-    //       voteCount2: 0,
-    //       createdBy: "user3",
-    //     },
-    //   ];
-    //   const comments = [
-    //     {
-    //       comment: "comment for question 1",
-    //       madeBy: "anonymous",
-    //       questionId: 1,
-    //     },
-    //     {
-    //       comment: "comment for question 2",
-    //       madeBy: "anonymous1",
-    //       questionId: 2,
-    //     },
-    //     {
-    //       comment: "comment for question 3",
-    //       madeBy: "anonymous2",
-    //       questionId: 3,
-    //     },
-    //   ];
-
     //Get array of questionsIds that the user already voted on
     const questionsVoted = await User.find({questionVoted: req.user.id})
     
@@ -130,6 +86,16 @@ const getIndex = async (req, res) => {
   }
 };
 
+const updateVote = async (req,res) => {
+  console.log(req.body.optionSelected);
+  console.log(req.body.questionId);
+  res.json('done')
+  try {
+    
+  } catch (err) {
+    
+  }
+}
 /*
 
 const getIndex = async (req, res) => {
@@ -164,6 +130,7 @@ const createComment = async(req,res) => {
 module.exports = {
   questionController: {
     getIndex,
+    updateVote,
   },
 };
 
