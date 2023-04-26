@@ -45,7 +45,7 @@
             background-color: #f8f9fa;"
             onClick="handleVote('option1')">
 
-            <p data-id="<%= question._id %>"><%= question.option1 %></p>
+            <p data-id="<%= question._id %>" class="firstOption"><%= question.option1 %></p>
             <div class="flex justify-center w-full">
               <span class="fa-regular fa-thumbs-up"></span>
             </div>
@@ -53,7 +53,7 @@
           <button id="option2"
             class="flex choice flex-col justify-center items-center w-full h-1/2 bg-red-500 text-white text-center rounded-b-xl shadow-xl drop-shadow-lg hover:bg-red-600 active:bg-red-700 md:w-1/2 h-full md:rounded-tl-none md:rounded-bl-none md:rounded-tr-xl md:rounded-br-xl text-base md:text-xl"
             onClick="handleVote('option2')">
-              <p data-id="<%= question._id %>"><%= question.option2 %></p>
+              <p data-id="<%= question._id %>" class="secondOption"><%= question.option2 %></p>
               <div class="flex justify-center w-full">
                 <span class="fa-regular fa-thumbs-up"></span>
               </div>

@@ -41,7 +41,7 @@ function addNewComment(question, comment) {
 }
 
 let hasVoted = false;
-function vote(option, question) {
+/* function vote(option, question) {
   if (hasVoted) {
     return;
   }
@@ -90,17 +90,25 @@ function vote(option, question) {
   const mainDiv = document.getElementById("main-div");
   mainDiv.classList.add("slide-out");
 }
+ */
 
+
+//Get choices buttons
 const choices = document.querySelectorAll('.choice')
 Array.from(choices).forEach((choice) => {
+  //Add click event to each button
   choice.addEventListener('click', updateVotes)
 })
 
 async function updateVotes(){
+  //Select p tag inside button
   const option = this.querySelector('p')
+  //Get question ID from attribute
   const questionId = option.getAttribute('data-id')
+
+  //update db with comment
   try {
-    const response = fetch('questions/vote', {
+    const response = await fetch('questions/vote', {
         method: 'put',
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({
@@ -109,10 +117,15 @@ async function updateVotes(){
         })
       })
     const data = await response.json()
-    console.log(data);
+    if(option.textContent == data.option1){
+      option.innerText = `Votes: ${data.voteCount1}`
+      document.querySelector('.secondOption').innerText = `Votes: ${data.voteCount2}`
+    }else if(option.textContent == data.option2){
+      option.innerText = `Votes: ${data.voteCount12}`
+      document.querySelector('.firstOption').innerText = `Votes: ${data.voteCount1}`
+    }
+
   } catch (err) {
     console.log(err);
   }
-
-  
 }
