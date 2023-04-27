@@ -108,11 +108,12 @@ async function updateVotes(){
         })
       })
     const data = await response.json()
+    console.log(data);
     if(option.textContent == data.option1){
       option.innerText = `Votes: ${data.voteCount1}`
       document.querySelector('.secondOption').innerText = `Votes: ${data.voteCount2}`
     }else if(option.textContent == data.option2){
-      option.innerText = `Votes: ${data.voteCount12}`
+      option.innerText = `Votes: ${data.voteCount2}`
       document.querySelector('.firstOption').innerText = `Votes: ${data.voteCount1}`
     }
 

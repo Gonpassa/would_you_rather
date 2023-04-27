@@ -70,7 +70,6 @@ const updateVote = async (req,res) => {
     //Push QuestionId into user questionsVoted Array and save
     const user = await User.findOne({_id: req.user.id})
     user.questionsVoted.push(questionId)
-    console.log(optionText);
     await user.save()
     //Find voted question
     const question = await Question.findOne({_id: questionId})
@@ -90,36 +89,6 @@ const updateVote = async (req,res) => {
     console.log(err);
   }
 }
-/*
-
-const getIndex = async (req, res) => {
-  try {
-    const questionCount = await Question.countDocuments();
-    const randomIndex = Math.floor(Math.random() * questionCount);
-    const randomQuestion = await Question.findOne().skip(randomIndex);
-    const comments = await Comment.find({ questionId: randomQuestion._id });
-    res.render("wyr-single.ejs", { question: randomQuestion, comments });
-
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Internal Server Error");
-  }
-};
-const createComment = async(req,res) => {
-  try{
-    const newComment = await Comment.create({
-      comment: req.body.comment,
-      madeBy: req.user.username,
-      questionId: req.body.questionId,
-    });
-   res.redirect(`/question/${req.body.questionId}`);
-  }catch(err){
-    console.log(err);
-    res.status(500).send("Internal Server Error");
-  }
-}
-};
-*/
 
 module.exports = {
   questionController: {
@@ -127,5 +96,3 @@ module.exports = {
     updateVote,
   },
 };
-
-/* To Be Deleted Later End*/
