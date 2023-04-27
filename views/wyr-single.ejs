@@ -91,7 +91,9 @@
           <li class="flex flex-row justify-between" data-id='<%= comment._id %>'>
             <p class="text-gray-600"><%= comment.userName %></p>
             <p class="text-gray-600"><%= comment.comment %></p>
+            <% if(user.id === comment.madeBy) { %>
             <button class="del">🗑️</button>
+            <% } %>
           </li>
         <% }) %>
       </ul>
