@@ -11,26 +11,16 @@
   <link rel="stylesheet" href="/css/wyr-single.css">
   <script src="/js/wyr-single.js" defer></script>
   <script src="/js/navbar.js"defer></script>
-<script defer>
-  const questionData = <%- JSON.stringify(question) %>;
-  const commentData = <%- JSON.stringify(commentsForQuestion) %>;
-
-  function handleVote(option) {
-    vote(option, questionData);
-  }
-
-</script>
-
 </head>
 
 <body class="h-auto w-screen flex flex-col bg-slate-600 border-white">
   <%- include('../testPartials/testNavbar'); %>
   <div class="content">
     <main name="div-wrap" class="h-5/6 w-7/8 container mx-auto px-4 py-8 md:w-4/6 md:h-4/6 l:h-3/6 l:w-5/6">
-      <p id="voteCount1" data-vote-count="<%= question.voteCount1 %>" style="display: none;" class="text-white text-center"><%= question.voteCount1 %></p>
+      <!-- <p id="voteCount1" data-vote-count="<%= question.voteCount1 %>" style="display: none;" class="text-white text-center"><%= question.voteCount1 %></p>
       <p id="voteCount2" data-vote-count="<%= question.voteCount2 %>" style="display: none;" class="text-white text-center"><%= question.voteCount2 %></p>
       <p id="totalVotes" data-vote-count="<%=question.voteCount1 + question.voteCount2%>" style="display: none;"
-        class="text-white text-center">Total votes: <%= question.voteCount1 + question.voteCount2 %></p>
+        class="text-white text-center">Total votes: <%= question.voteCount1 + question.voteCount2 %></p> -->
       <section name="MAIN INSIDE DIV" id="main-div"
         class=" flex flex-col h-full bg-white shadow-md rounded-3xl p-8 md:h-4/6 md:flex-col md:h-full">
         <div name="Question/vote percentage container h-3/4"
@@ -58,14 +48,6 @@
                 <span class="fa-regular fa-thumbs-up"></span>
               </div>
           </button>
-          <!-- <div class="absolute inset-0 flex justify-center items-center">
-            <div
-              class="flex flex-col justify-center items-center gap-y-2 my-4 bg-black text-white rounded-full p-2 h-12 w-12 md:h-24 md:w-24">
-              <h1 class="">
-                OR
-              </h1>
-            </div>
-          </div> -->
         </div>
     </main>
     <div class="flex flex-col justify-center items-center gap-y-2 my-4">
@@ -83,18 +65,18 @@
     </section>
   </div>
 
-  <div id="comment-modal" class="hidden fixed top-0 left-0 w-full h-full flex items-center justify-center z-1000">
+  <div id="comment-modal" class="hidden fixed top-0 left-0 w-full h-full flex items-center justify-center items start z-1000">
     <div class="bg-white rounded-lg p-8 max-w-md w-full">
       <h2 class="text-2xl font-semibold mb-4">Comments</h2>
-      <ul>
+      <ul class="overflow-x-hidden overflow-y-auto max-h-64 mb-1">
         <% commentsForQuestion.forEach(comment => { %>
-          <li class="flex flex-row justify-between" data-id='<%= comment._id %>'>
-            <p class="text-gray-600"><%= comment.userName %></p>
-            <p class="text-gray-600"><%= comment.comment %></p>
-            <% if(user.id === comment.madeBy) { %>
-            <button class="del">🗑️</button>
-            <% } %>
-          </li>
+        <li class="flex flex-row w-[100%] border-b border-gray-500 items-start" data-id='<%= comment._id %>'>
+          <p class="text-gray-600 break-words w-[33%]"><%= comment.userName %></p>
+          <p class="text-gray-600 break-words w-[33%]"><%= comment.comment %></p>
+          <% if(user.id === comment.madeBy) { %>
+          <button class="del w-[33%]">🗑️</button>
+          <% } %>
+        </li>
         <% }) %>
       </ul>
       <form action="submit">
@@ -108,6 +90,7 @@
         class="bg-red-500 text-white rounded px-4 py-2 mt-4 hover:bg-red-600 active:bg-red-700">Close</button>
     </div>
   </div>
+
 
 </body>
 

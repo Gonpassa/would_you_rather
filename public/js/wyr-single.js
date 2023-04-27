@@ -168,18 +168,21 @@ async function createComment() {
     const newUserName = document.createElement("p");
     const newContent = document.createElement("p");
     const newDelete = document.createElement("button");
-    newComment.classList.add("flex", "flex-row", "justify-between");
+    const newBreakLine = document.createElement("br");
+    newComment.classList.add("flex","flex-row","items-start","w-[100%]","border-b","border-gray-500", "mb-2");
     newComment.setAttribute('data-id', data._id);
-    newUserName.classList.add("text-gray-600");
+    newUserName.classList.add("text-gray-600", "break-words", "w-[33%]");
     newUserName.textContent = data.madeBy;
-    newContent.classList.add("text-gray-600");
+    newContent.classList.add("text-gray-600", "break-words","w-[33%]");
     newContent.textContent = commentText;
-    newDelete.classList.add("del");
+    newDelete.classList.add("del", "w-[33%]");
     newDelete.textContent = '🗑️';
+    newBreakLine.classList.add("w-[100%]")
     newDelete.addEventListener('click', deleteComment);
     newComment.appendChild(newUserName);
     newComment.appendChild(newContent);
     newComment.appendChild(newDelete);
+    console.log("newComment", newComment)
     commentList.appendChild(newComment);
     // Clears textarea.
     document.getElementById("comment").value = "";
