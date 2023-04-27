@@ -88,10 +88,11 @@
       <h2 class="text-2xl font-semibold mb-4">Comments</h2>
       <ul>
         <% commentsForQuestion.forEach(comment => { %>
-          <div class="flex flex-row justify-between">
+          <li class="flex flex-row justify-between" data-id='<%= comment._id %>'>
             <p class="text-gray-600"><%= comment.userName %></p>
             <p class="text-gray-600"><%= comment.comment %></p>
-          </div>
+            <button class="del">🗑️</button>
+          </li>
         <% }) %>
       </ul>
       <form action="submit">

@@ -1,4 +1,5 @@
 const Comment = require('../models/Comment');
+const User = require("../models/User");
 
 module.exports = {
     getComments: async (req, res) => {
@@ -13,6 +14,9 @@ module.exports = {
         try {
             const comment = await Comment.create({comment: req.body.commentText, madeBy: req.user.id, questionId: req.body.questionId});
             console.log('Comment has been added!');
+            // The way I found to send the username at the time you add a comment: fetching the user with the commenter id, and sending it in the response object. I don't know why but I couldn't get it to create a new property for the comment object. Had to change the madeBy property already present for it to work.
+            const newUser = await User.findOne({_id: comment.madeBy});
+            comment.madeBy = newUser.userName;
             res.json(comment);
         } catch(err) {
             console.log(err);

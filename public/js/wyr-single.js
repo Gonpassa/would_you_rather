@@ -3,6 +3,7 @@ const commentBtn = document.querySelector("[name='comment-btn']");
 const closeModal = document.getElementById("close-modal");
 const commentModal = document.getElementById("comment-modal");
 const addComment = document.getElementById("add-comment");
+const deleteBtn = document.querySelectorAll('.del');
 
 // Add this line to select the form
 const commentForm = document.querySelector("form");
@@ -16,7 +17,7 @@ commentBtn.addEventListener("click", () => {
 
 addComment.addEventListener("click", (e) => {
   e.preventDefault(); // Add this line to prevent the default behavior
-  addNewComment();
+  createComment();
 });
 
 closeModal.addEventListener("click", () => {
@@ -29,16 +30,6 @@ commentForm.addEventListener("submit", (e) => {
   e.preventDefault();
   addNewComment();
 });
-
-function addNewComment(question, comment) {
-  const commentText = document.getElementById("comment").value;
-  const commentList = document.querySelector("ul");
-  const newComment = document.createElement("li");
-  newComment.classList.add("border-b", "border-gray-200", "py-2");
-  newComment.textContent = commentText;
-  commentList.appendChild(newComment);
-  document.getElementById("comment").value = "";
-}
 
 let hasVoted = false;
 /* function vote(option, question) {
@@ -125,6 +116,72 @@ async function updateVotes(){
       document.querySelector('.firstOption').innerText = `Votes: ${data.voteCount1}`
     }
 
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// Deleting comments functionality
+Array.from(deleteBtn).forEach( elem => {
+  elem.addEventListener('click', deleteComment);
+});
+
+async function deleteComment() {
+  // I had to modify the .ejs file as well so comments had a data-id attribute with the comment id, so it could be passed into the delete function.
+  const commentId = this.parentNode.dataset.id;
+  try {
+      const response = await fetch('/comments', {
+          method: 'delete',
+          headers: { 'Content-type': 'application/json' },
+          body: JSON.stringify({
+              'commentId': commentId
+          })
+      });
+      const data = await response.json();
+      console.log(data);
+      this.parentNode.classList.add('hidden');
+  } catch (err) {
+      console.log(err);
+  }
+}
+
+// Creating comments functionality
+async function createComment() {
+  // Grabbing the question id from the DOM.
+  const questionId = document.querySelector('.firstOption').getAttribute('data-id');
+  const commentText = document.getElementById("comment").value;
+  try {
+    const response = await fetch('/comments', {
+        method: 'post',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({
+            'commentText': commentText,
+            'questionId': questionId
+        })
+    });
+    const data = await response.json();
+    console.log(data);
+    // Everything else is just creating the new elements with the comment data and appending them to the comment section.
+    const commentList = document.querySelector("ul");
+    const newComment = document.createElement("li");
+    const newUserName = document.createElement("p");
+    const newContent = document.createElement("p");
+    const newDelete = document.createElement("button");
+    newComment.classList.add("flex", "flex-row", "justify-between");
+    newComment.setAttribute('data-id', data._id);
+    newUserName.classList.add("text-gray-600");
+    newUserName.textContent = data.madeBy;
+    newContent.classList.add("text-gray-600");
+    newContent.textContent = commentText;
+    newDelete.classList.add("del");
+    newDelete.textContent = '🗑️';
+    newDelete.addEventListener('click', deleteComment);
+    newComment.appendChild(newUserName);
+    newComment.appendChild(newContent);
+    newComment.appendChild(newDelete);
+    commentList.appendChild(newComment);
+    // Clears textarea.
+    document.getElementById("comment").value = "";
   } catch (err) {
     console.log(err);
   }

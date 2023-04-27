@@ -7,7 +7,6 @@ const commentsController = require("../controllers/comments")
 
 
 router.get("/", ensureAuth, questionController.getIndex);
-router.get("/comments", commentsController.getComments)
 router.put("/vote", questionController.updateVote)
 /* below possible for later?  */
 

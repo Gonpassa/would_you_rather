@@ -12,6 +12,7 @@ const todoRoutes = require('./routes/todos')
 
 /* adding question route definition */
 const questionRoutes = require('./routes/questions')
+const commentRoutes = require('./routes/comments');
 /* end of addition  of question route definition*/
 
 require('dotenv').config({path: './config/.env'})
@@ -48,6 +49,7 @@ app.use('/', mainRoutes)
 /* question route*/
 
 app.use('/questions', questionRoutes )
+app.use('/comments', commentRoutes );
 
 
 app.listen(process.env.PORT, ()=>{
