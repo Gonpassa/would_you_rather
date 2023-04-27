@@ -1,5 +1,5 @@
 # Would you rather?
-Game to play that allows user 
+Tool to streamline engagement between streamers and their audience. Users can vote on what choice they like best.
 
 **Link to project:** (needs deployment)
 
