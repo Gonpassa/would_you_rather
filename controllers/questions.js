@@ -35,7 +35,6 @@ const getIndex = async (req, res) => {
 
     //Get array of questions that user has not voted
     const unvotedQuestions = questionsArr.filter(q => user.questionsVoted.includes(q._id) ? 0 : 1)
-    console.log(unvotedQuestions);
     if(!unvotedQuestions.length){
       return res.redirect('/logout')
     }
@@ -71,6 +70,7 @@ const updateVote = async (req,res) => {
     //Push QuestionId into user questionsVoted Array and save
     const user = await User.findOne({_id: req.user.id})
     user.questionsVoted.push(questionId)
+    console.log(optionText);
     await user.save()
     //Find voted question
     const question = await Question.findOne({_id: questionId})
@@ -79,10 +79,13 @@ const updateVote = async (req,res) => {
       question.voteCount1++
       await question.save()
       return res.json(question)
+    }else if (question.option2 == optionText){
+      question.voteCount2++
+      await question.save()
+      return res.json(question)
     }
-    question.voteCount2++
-    await question.save()
-    return res.json(question)
+
+    return res.json('Already voted')
   } catch (err) {
     console.log(err);
   }
