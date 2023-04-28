@@ -1,14 +1,12 @@
 // Existing code
 const commentBtn = document.querySelector("[name='comment-btn']");
-const closeModal = document.getElementById("close-modal");
+const addCommentCloseModal = document.getElementById("addComment-close-modal");
 const commentModal = document.getElementById("comment-modal");
 const addComment = document.getElementById("add-comment");
 const deleteBtn = document.querySelectorAll('.del');
 
 // Add this line to select the form
-const commentForm = document.querySelector("form");
-
-let commentOpen = false;
+const commentForm = document.getElementById("addCommentForm");
 
 commentBtn.addEventListener("click", () => {
   commentModal.classList.add("show");
@@ -20,7 +18,7 @@ addComment.addEventListener("click", (e) => {
   createComment();
 });
 
-closeModal.addEventListener("click", () => {
+addCommentCloseModal.addEventListener("click", () => {
   commentModal.classList.add("hidden");
   commentModal.classList.remove("show");
 });
@@ -30,59 +28,6 @@ commentForm.addEventListener("submit", (e) => {
   e.preventDefault();
   addNewComment();
 });
-
-let hasVoted = false;
-/* function vote(option, question) {
-  if (hasVoted) {
-    return;
-  }
-
-  const optionBtn1 = document.getElementById("option1");
-  const optionBtn2 = document.getElementById("option2");
-  const voteCount1Display = document.getElementById("voteCount1");
-  const voteCount2Display = document.getElementById("voteCount2");
-
-  let voteCount1 = parseInt(
-    voteCount1Display.getAttribute("data-vote-count"),
-    10
-  );
-  let voteCount2 = parseInt(
-    voteCount2Display.getAttribute("data-vote-count"),
-    10
-  );
-
-  if (option === "option1") {
-    voteCount1 += 1;
-    voteCount1Display.setAttribute("data-vote-count", voteCount1);
-  } else if (option === "option2") {
-    voteCount2 += 1;
-    voteCount2Display.setAttribute("data-vote-count", voteCount2);
-  }
-
-  // Set the text content for both vote counts
-  voteCount1Display.textContent = `${question.option1}-${voteCount1}`;
-  voteCount2Display.textContent = `${question.option2}-${voteCount2}`;
-
-  hasVoted = true;
-  optionBtn1.disabled = true;
-  optionBtn2.disabled = true;
-
-  const totalVotesDisplay = document.getElementById("totalVotes");
-
-  // Set the display property to block
-  voteCount1Display.style.display = "block";
-  voteCount2Display.style.display = "block";
-
-  const totalVotes = voteCount1 + voteCount2;
-  totalVotesDisplay.setAttribute("data-vote-count", totalVotes);
-  totalVotesDisplay.textContent = `Total votes: ${totalVotes}`;
-  totalVotesDisplay.style.display = "block";
-
-  const mainDiv = document.getElementById("main-div");
-  mainDiv.classList.add("slide-out");
-}
- */
-
 
 //Get choices buttons
 const choices = document.querySelectorAll('.choice')
@@ -186,6 +131,100 @@ async function createComment() {
     commentList.appendChild(newComment);
     // Clears textarea.
     document.getElementById("comment").value = "";
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/* ADDING AND DELETING QUESTION UI */
+const addQuestionBtn = document.getElementById("add-question-button");
+const questionModal = document.getElementById("add-question-modal");
+const questionForm = document.getElementById("addQuestionForm");
+const addQuestionCloseModal = document.getElementById(
+  "addQuestion-close-modal"
+);
+const deleteQuestionBtn = document.getElementById("deleteQuestionBtn");
+
+addQuestionBtn.addEventListener("click", () => {
+  questionModal.classList.add("show");
+  questionModal.classList.remove("hidden");
+});
+
+addQuestionCloseModal.addEventListener("click", () => {
+  questionModal.classList.add("hidden");
+  questionModal.classList.remove("show");
+});
+
+questionForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addNewQuestion();
+});
+
+async function addNewQuestion() {
+  const newOption1 = document.getElementById("newOption1").value;
+  const newOption2 = document.getElementById("newOption2").value;
+
+  const userId = document.getElementById("user-id").value;
+
+
+  try {
+    const response = await fetch('/questions', {
+      method: 'post',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({
+        option1: newOption1,
+        option2: newOption2,
+        voteCount1: 0,
+        voteCount2: 0,
+        createdBy: userId,
+      })
+    });
+    const data = await response.json();
+    console.log(data);
+
+    const questionList = document.getElementById("questionList");
+    const newQuestion = document.createElement("li")
+    const novelOption1 = document.createElement("p");
+    const novelOption2 = document.createElement("p");
+    const newQuestionUser = document.createElement("p");
+    const deleteBtn = document.createElement("button");
+    newQuestion.classList.add("flex","flex-row","items-start","w-[100%]","border-b","border-gray-500","mb-2");
+    newQuestion.setAttribute("data-id", data._id);
+    newQuestionUser.classList.add("text-gray-600", "break-words", "w-[24%]");
+    newQuestionUser.textContent = data.createdBy;
+    novelOption1.classList.add("text-gray-600", "break-words", "w-[24%]");
+    novelOption1.textContent = data.option1;
+    novelOption2.classList.add("text-gray-600", "break-words", "w-[24%]");
+    novelOption2.textContent = data.option2;
+    newQuestion.appendChild(novelOption1);
+    newQuestion.appendChild(novelOption2);
+    if (data.createdBy === userId) {
+      deleteBtn.textContent = "🗑️";
+      deleteBtn.classList.add("w-[24%]");
+      deleteBtn.id = "deleteQuestionBtn";
+      deleteBtn.addEventListener("click", deleteQuestion);
+      newQuestion.appendChild(deleteBtn);
+    }
+    console.log("newQuestion", newQuestion );
+    questionList.appendChild(newQuestion);
+    newOption1.value = "";
+    newOption2.value = "";
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+
+async function deleteQuestion() {
+  const questionId = this.parentNode.dataset.id;
+  try {
+    const response = await fetch(`/questions/${questionId}`, {
+      method: "delete",
+      headers: { "Content-type": "application/json" },
+    });
+    const data = await response.json();
+    console.log(data);
+    this.parentNode.classList.add("hidden");
   } catch (err) {
     console.log(err);
   }
