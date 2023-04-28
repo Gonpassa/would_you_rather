@@ -13,7 +13,7 @@ const getIndex = async (req, res) => {
     //If user has not voted on any questions yet generate random question
     if(!user.questionsVoted.length){
       //Select random question document
-      const randIndex = Math.floor(Math.random() * questionsArr.length - 1)
+      const randIndex = Math.floor(Math.random() * (questionsArr.length - 1))
       const question = questionsArr[randIndex]
       //Get comments for question
       const comments = await Comment.find({questionId: question._id})
@@ -37,8 +37,7 @@ const getIndex = async (req, res) => {
     if(!unvotedQuestions.length){
       return res.redirect('/logout')
     }
-    const randIndex = Math.floor(Math.random() * unvotedQuestions.length)
-
+    let randIndex = Math.floor(Math.random() * unvotedQuestions.length - 1)
     //Randomly pick a question
     const question = unvotedQuestions[randIndex]
 
