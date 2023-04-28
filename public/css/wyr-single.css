@@ -30,7 +30,7 @@
       }
     }
 
-
+/*
     .slide-out {
       animation: slideOut 2s ease forwards;
     }
@@ -42,4 +42,22 @@
   100% {
     transform: translateX(-150%);
   }
-}
+} */
+
+    #add-question-modal {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #add-question-modal.show {
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }

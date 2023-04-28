@@ -17,10 +17,6 @@
   <%- include('../testPartials/testNavbar'); %>
   <div class="content">
     <main name="div-wrap" class="h-5/6 w-7/8 container mx-auto px-4 py-8 md:w-4/6 md:h-4/6 l:h-3/6 l:w-5/6">
-      <!-- <p id="voteCount1" data-vote-count="<%= question.voteCount1 %>" style="display: none;" class="text-white text-center"><%= question.voteCount1 %></p>
-      <p id="voteCount2" data-vote-count="<%= question.voteCount2 %>" style="display: none;" class="text-white text-center"><%= question.voteCount2 %></p>
-      <p id="totalVotes" data-vote-count="<%=question.voteCount1 + question.voteCount2%>" style="display: none;"
-        class="text-white text-center">Total votes: <%= question.voteCount1 + question.voteCount2 %></p> -->
       <section name="MAIN INSIDE DIV" id="main-div"
         class=" flex flex-col h-full bg-white shadow-md rounded-3xl p-8 md:h-4/6 md:flex-col md:h-full">
         <div name="Question/vote percentage container h-3/4"
@@ -50,17 +46,24 @@
           </button>
         </div>
     </main>
-    <div class="flex flex-col justify-center items-center gap-y-2 my-4">
+    <div class="flex flex-col justify-center items-center gap-y-2 my-2">
       <button
-        class="bg-green-500 rounded-3xl py-2 w-1/2 text-xs shadow-xl  hover:bg-green-600 active:bg-green-700 md:py-1.5"
+        class="bg-green-500 rounded-3xl py-2 w-3/4 text-xs shadow-xl hover:bg-green-600 active:bg-green-700 md:py-1.5 md:w-1/4"
         onClick="window.location.href='/questions'">
         Next Question
       </button>
       <button name="comment-btn"
-        class="bg-orange-500 rounded-3xl py-2 w-3/4 text-xs shadow-xl py-0 px-0 hover:bg-orange-600 active:bg-orange-700 md:py-0">
+        class="bg-orange-500 rounded-3xl py-1 w-3/4 text-xs shadow-xl py-0 px-0 hover:bg-orange-600 active:bg-orange-700 md:py-0">
         <span class="fa-regular fa-comment"></span>
         <p>Comment?</p>
       </button>
+      <!-- add question button -->
+      <button id="add-question-button"
+         class="bg-purple-500 rounded-3xl w-3/4 mb-8 text-xs shadow-xl hover:bg-purple-600 active:bg-purple-700 md:w-1/4">
+        <span class="fa-regular fa-plus"></span>
+        <p>Add Question?</p>
+      </button>
+      <!-- end add question button -->
     </div>
     </section>
   </div>
@@ -79,17 +82,47 @@
         </li>
         <% }) %>
       </ul>
-      <form action="submit">
+      <form id="addCommentForm" action="submit">
         <textarea id="comment" class="border border-gray-200 rounded-lg p-2 w-full mt-4"
           placeholder="Add a comment"></textarea>
         <button id="add-comment"
           class="bg-green-500 text-white rounded px-4 py-2 mt-4 hover:bg-green-600 active:bg-green-700">Add
           Comment</button>
       </form>
-      <button id="close-modal"
+      <button id="addComment-close-modal"
         class="bg-red-500 text-white rounded px-4 py-2 mt-4 hover:bg-red-600 active:bg-red-700">Close</button>
     </div>
   </div>
+
+  <!-- add question modal -->
+  <div id="add-question-modal"
+    class="hidden fixed top-0 left-0 w-full h-full flex items-center justify-center items start z-1000">
+    <div class="bg-white rounded-lg p-8 max-w-md w-full">
+      <h2 class="text-2xl font-semibold mb-4">Add your own question?</h2>
+      <!-- display added questions here (added code covered inside wyr-single.js) -->
+      <ul id="questionList" class="flex flex-col">
+      </ul>
+      <!-- end of added questions display -->
+      <form id="addQuestionForm" action="submit">
+        <input type="hidden" id="user-id" value="<%= user.id %>">
+        <label for="newOption1" class="block mb-2">Option 1:</label>
+        <input id="newOption1" class="border border-gray-200 rounded-lg p-2 w-full mb-4" type="text"
+          placeholder="Option 1" />
+
+        <label for="newOption2" class="block mb-2">Option 2:</label>
+        <input id="newOption2" class="border border-gray-200 rounded-lg p-2 w-full mb-4" type="text"
+          placeholder="Option 2" />
+
+        <button id="add-question"
+          class="bg-green-500 text-white rounded px-4 py-2 mt-4 hover:bg-green-600 active:bg-green-700">
+          Add Question
+        </button>
+      </form>
+      <button id="addQuestion-close-modal"
+        class="deleteQuestion bg-red-500 text-white rounded px-4 py-2 mt-4 hover:bg-red-600 active:bg-red-700">Close</button>
+    </div>
+  </div>
+  <!-- end of add question modal -->
 
 
 </body>

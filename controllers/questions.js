@@ -15,7 +15,6 @@ const getIndex = async (req, res) => {
       //Select random question document
       const randIndex = Math.floor(Math.random() * questionsArr.length - 1)
       const question = questionsArr[randIndex]
-      
       //Get comments for question
       const comments = await Comment.find({questionId: question._id})
 
@@ -56,7 +55,7 @@ const getIndex = async (req, res) => {
       question: question,
       commentsForQuestion: comments,
       user: req.user });
-    
+
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal Server Error");
@@ -73,7 +72,7 @@ const updateVote = async (req,res) => {
     await user.save()
     //Find voted question
     const question = await Question.findOne({_id: questionId})
-    
+
     if(question.option1 == optionText){
       question.voteCount1++
       await question.save()
@@ -90,9 +89,10 @@ const updateVote = async (req,res) => {
   }
 }
 
+
 module.exports = {
   questionController: {
     getIndex,
-    updateVote,
+    updateVote
   },
 };
