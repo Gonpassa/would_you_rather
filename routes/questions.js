@@ -7,10 +7,10 @@ const commentsController = require("../controllers/comments")
 
 
 router.get("/", ensureAuth, questionController.getIndex);
+router.post("/addQuestion", questionController.addQuestion)
 router.put("/vote", questionController.updateVote)
-/* below possible for later?  */
+router.get("/:id", questionController.getSpecificQuestion);
 
-// router.post("/", questionController.addQuestion);
 // router.delete("/:id", questionController.deleteQuestion);
 
 

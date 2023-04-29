@@ -28,8 +28,7 @@
             class="flex choice flex-col justify-center items-center w-full h-1/2 bg-blue-500 text-white text-center
             rounded-t-xl shadow-xl drop-shadow-lg hover:bg-blue-600 active:bg-blue-700 md:w-1/2 h-full md:rounded-tl-xl
             md:rounded-tr-none md:rounded-br-none md:rounded-bl-xl text-base md:text-xl
-            background-color: #f8f9fa;"
-            onClick="handleVote('option1')">
+            background-color: #f8f9fa;">
 
             <p data-id="<%= question._id %>" class="firstOption"><%= question.option1 %></p>
             <div class="flex justify-center w-full">
@@ -37,8 +36,7 @@
             </div>
           </button>
           <button id="option2"
-            class="flex choice flex-col justify-center items-center w-full h-1/2 bg-red-500 text-white text-center rounded-b-xl shadow-xl drop-shadow-lg hover:bg-red-600 active:bg-red-700 md:w-1/2 h-full md:rounded-tl-none md:rounded-bl-none md:rounded-tr-xl md:rounded-br-xl text-base md:text-xl"
-            onClick="handleVote('option2')">
+            class="flex choice flex-col justify-center items-center w-full h-1/2 bg-red-500 text-white text-center rounded-b-xl shadow-xl drop-shadow-lg hover:bg-red-600 active:bg-red-700 md:w-1/2 h-full md:rounded-tl-none md:rounded-bl-none md:rounded-tr-xl md:rounded-br-xl text-base md:text-xl">
               <p data-id="<%= question._id %>" class="secondOption"><%= question.option2 %></p>
               <div class="flex justify-center w-full">
                 <span class="fa-regular fa-thumbs-up"></span>
@@ -103,18 +101,17 @@
       <ul id="questionList" class="flex flex-col">
       </ul>
       <!-- end of added questions display -->
-      <form id="addQuestionForm" action="submit">
-        <input type="hidden" id="user-id" value="<%= user.id %>">
+      <form id="addQuestionForm" action="/questions/addQuestion" method="POST">
         <label for="newOption1" class="block mb-2">Option 1:</label>
         <input id="newOption1" class="border border-gray-200 rounded-lg p-2 w-full mb-4" type="text"
-          placeholder="Option 1" />
+          placeholder="Option 1" name="option1" required/>
 
         <label for="newOption2" class="block mb-2">Option 2:</label>
         <input id="newOption2" class="border border-gray-200 rounded-lg p-2 w-full mb-4" type="text"
-          placeholder="Option 2" />
-
+          placeholder="Option 2" name="option2" required/>
+        
         <button id="add-question"
-          class="bg-green-500 text-white rounded px-4 py-2 mt-4 hover:bg-green-600 active:bg-green-700">
+          class="bg-green-500 text-white rounded px-4 py-2 mt-4 hover:bg-green-600 active:bg-green-700" type="submit">
           Add Question
         </button>
       </form>

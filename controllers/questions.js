@@ -37,7 +37,7 @@ const getIndex = async (req, res) => {
     if(!unvotedQuestions.length){
       return res.redirect('/logout')
     }
-    let randIndex = Math.floor(Math.random() * unvotedQuestions.length - 1)
+    let randIndex = Math.floor(Math.random() * (unvotedQuestions.length - 1))
     //Randomly pick a question
     const question = unvotedQuestions[randIndex]
 
@@ -88,10 +88,43 @@ const updateVote = async (req,res) => {
   }
 }
 
+const getSpecificQuestion = async (req, res) => {
+  try {
+    const question = await Question.findOne({_id: req.params.id})
+    const comments = await Comment.find({questionId: question._id})
+    //Add matching username to each comment
+    for(let comment of comments){
+      const writer = await User.findById(comment.madeBy)
+      comment.userName = writer.userName
+    }
+    return res.render("wyr-single.ejs", {
+      question: question,
+      commentsForQuestion: comments,
+      user: req.user
+    });
+
+  } catch (err) {
+    
+  }
+}
+
+const addQuestion = async (req,res) => {
+  console.log('hi');
+  const option1 = req.body.option1
+  const option2 = req.body.option2
+  try {
+    const newQuestion = await Question.create({option1: option1, option2: option2, voteCount1:0, voteCount2: 0, createdBy: req.user.id})
+    res.redirect(`/questions/${newQuestion._id}`)
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 module.exports = {
   questionController: {
     getIndex,
-    updateVote
+    updateVote,
+    addQuestion,
+    getSpecificQuestion
   },
 };
