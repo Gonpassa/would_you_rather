@@ -4,9 +4,11 @@ Play an online game of Would you Rather!
 
 Choose your answers, see other people's votes, leave comments on the questions, and create your own!
 
-**Link to project:** https://would-you-rather-adfe.onrender.com/
+**Link to the project:** https://would-you-rather-adfe.onrender.com/
 
-![Gif showing the web app functionality and design.](public/images/wyr.gif)
+<a href="https://would-you-rather-adfe.onrender.com/" align="center">
+    <img src="public/images/wyr.gif" alt="Gif showing app functionality and design."/>
+</a>
 
 ---
 
